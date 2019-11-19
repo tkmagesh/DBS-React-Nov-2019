@@ -57,10 +57,17 @@
             }
         }
 
+        class ProductsCount extends React.Component{
+            render(){
+                return(<div>{this.props.data}</div>)
+            }
+        }
+
         let model = new ProductsModel();
         function renderApp(){
             ReactDOM.render(
                 <div>
+                    <ProductsCount data={model.getAll().length} />
                     <Products model={model}/>
                 </div>
                 ,
