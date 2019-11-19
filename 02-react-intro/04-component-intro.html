@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React Intro</title>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="babel.min.js"></script>
+    <script type="text/babel">
+
+        class AppComponent extends React.Component{
+            counter = 0;
+            onIncrementCounterClick = () => {
+                
+            }
+            render(){
+                return (
+                    <div>
+                        <h1>Welcome to React.js</h1>
+                        <hr/>
+                        <input type="button" value="Increment Counter"/>
+                        <div>{++this.counter}</div>
+                        <section>
+                            <h3>Introduction</h3>
+                            <p>Nisi ad mollit fugiat excepteur ut sunt occaecat tempor do deserunt. Nisi sunt laboris ex consectetur dolore reprehenderit elit in cupidatat elit do ea. Minim laboris reprehenderit voluptate nisi irure reprehenderit ex labore elit velit nisi.</p>
+                            <p>Nulla voluptate ipsum deserunt anim velit in nulla sit sit. Amet consequat nostrud est sint anim. Ipsum incididunt aliquip minim sint enim cillum ea in anim enim ullamco incididunt est est. Commodo cillum irure non enim. Culpa eiusmod eu adipisicing excepteur nostrud. Incididunt occaecat ullamco anim do eu nulla id.</p>
+                        </section>
+                        <section>
+                            <h3>Advantages</h3>
+                            <ol>
+                                <li>Simplicity</li>
+                                <li>Declarative</li>
+                            </ol>
+                        </section>
+                    </div>
+                )
+            }
+        }
+        
+        ReactDOM.render(React.createElement(AppComponent)
+            , document.getElementById('appRoot'));
+        
+        //})();
+    </script>
+</head>
+<body>
+    
+    <div id="appRoot"></div>
+</body>
+</html>
