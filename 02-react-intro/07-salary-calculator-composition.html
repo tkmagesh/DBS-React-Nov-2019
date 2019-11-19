@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Salary Calculator</title>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="babel.min.js"></script>
+    <style>
+        body{
+            margin-left: 50px;
+        }
+        .field{
+            margin-bottom: 10px;
+        }
+        label{
+            display: block;
+        }
+        td{
+            margin-right: 10px;
+            font-size: 18pt;
+            padding: 10px;
+        }
+    </style>
+    <script type="text/babel">
+        String.prototype.toInt = function(){
+            return parseInt(this, 10);
+        };
+
+        //state & behavior
+        //Model
+        //Observable Model
+        function SalaryCalculatorModel(){
+            var _data = {
+                basic : 0,
+                hra : 0,
+                da : 0,
+                tax : 0,
+                salary : 0
+            };
+            var _changeListeners = [];
+
+            this.get = function(attrName){
+                return _data[attrName];
+            };
+            this.set = function(attrName, value){
+                if (_data[attrName] === value) return;
+                _data[attrName] = value;
+
+                _changeListeners.forEach(function(callback){
+                    if (typeof callback === 'function')
+                        callback();
+                });
+            };
+
+            this.subscribe = function(callback){
+                _changeListeners.push(callback);
+            }
+        }
+        //behavior
+        SalaryCalculatorModel.prototype.calculate = function(){
+            var gross = this.get('basic') + this.get('hra') + this.get('da');
+            var net = gross * ((100-this.get('tax'))/100);
+            this.set('salary', net);
+        }
+
+        //UI
+        class SalaryCalculator extends React.Component{
+            render(){
+                let model = this.props.model,
+                    basic = model.get('basic'),
+                    hra = model.get('hra'),
+                    da = model.get('da'),
+                    tax = model.get('tax'),
+                    salary = model.get('salary'),
+                    result = { basic, hra, da, tax, salary };
+
+                return (
+                     <section>
+                        <div className="field">
+                            <label htmlFor="">Basic :</label>
+                            <input type="number" onChange={ evt => model.set('basic', evt.target.value.toInt())}  />
+                        </div>
+                        <div className="field">
+                            <label htmlFor="">HRA :</label>
+                            <input type="number"  onChange={ evt => model.set('hra', evt.target.value.toInt())} />
+                        </div>
+                        <div className="field">
+                            <label htmlFor="">DA :</label>
+                            <input type="number" onChange={ evt => model.set('da', evt.target.value.toInt())}  />
+                        </div>
+                        <div className="field">
+                            <label htmlFor="">Tax :</label>
+                            <input type="range"  min="0" max="30" onChange={ evt => model.set('tax', evt.target.value.toInt())} />
+                        </div>
+                        <div className="field">
+                            <input type="button" value="Calculate" onClick={ evt => model.calculate()} />
+                        </div>
+                        <SalaryCalculatorResult {...result} />
+                    </section>
+                );
+            }
+        }
+
+        class SalaryCalculatorResult extends React.Component{
+            render(){
+                let { basic, hra, da, tax, salary } = this.props;
+                return(
+                    <div className="field">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>{basic}</td>
+                                    <td>{hra}</td>
+                                    <td>{da}</td>
+                                    <td>{tax}</td>
+                                    <td>{salary}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                )
+            }
+        }
+        
+        let model = new SalaryCalculatorModel();
+        function renderApp(){
+            ReactDOM.render(<SalaryCalculator model={model} />,
+                document.getElementById('root'));
+        }
+        renderApp();
+        model.subscribe(renderApp);
+    </script>
+</head>
+<body>
+    <h1>Salary Calculator</h1>
+    <hr>
+    <div id="root"></div>
+</body>
+</html>
