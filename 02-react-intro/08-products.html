@@ -12,12 +12,13 @@
         class Products extends React.Component{
             render(){
                 let productNames = [ 'Pen', 'Pencil', 'Marker', 'Scribble Pad' ];
-                let productItems = [];
+                {/* let productItems = [];
                 for (let index = 0; index < productNames.length; index++) {
                     const productName = productNames[index];
                     const productItem = (<li key={index}>{productName}</li>);
                     productItems.push(productItem);
-                }
+                } */}
+                let productItems = productNames.map((productName, index) => (<li key={index}>{productName}</li>));
                 return(
                     <div>
                         <h1>Products</h1>
