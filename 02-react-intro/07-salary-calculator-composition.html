@@ -23,6 +23,12 @@
             font-size: 18pt;
             padding: 10px;
         }
+        .goodSalary{
+            color : green;
+        }
+        .poorSalary{
+            color : red;
+        }
     </style>
     <script type="text/babel">
         String.prototype.toInt = function(){
@@ -107,6 +113,7 @@
         class SalaryCalculatorResult extends React.Component{
             render(){
                 let { basic, hra, da, tax, salary } = this.props;
+                let salaryEle = salary > 10000 ? (<td className="goodSalary">{salary}</td>) : (<td className="poorSalary">{salary}</td>);
                 return(
                     <div className="field">
                         <table>
@@ -116,7 +123,7 @@
                                     <td>{hra}</td>
                                     <td>{da}</td>
                                     <td>{tax}</td>
-                                    <td>{salary}</td>
+                                    { salaryEle }
                                 </tr>
                             </tbody>
                         </table>
