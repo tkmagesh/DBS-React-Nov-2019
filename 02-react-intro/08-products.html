@@ -9,20 +9,46 @@
     <script src="react-dom.development.js"></script>
     <script src="babel.min.js"></script>
     <script type="text/babel">
+        class EventEmitter {
+            _subscribers = [];
+
+            subscribe = (callback) => {
+                this._subscribers.push(callback);
+            }
+
+            triggerChange = () => {
+                this._subscribers.forEach(callback => callback());
+            }
+        }
+
+        class ProductsModel extends EventEmitter{
+            _list = [];
+
+            addNew = (productName) => {
+                this._list.push(productName);
+                this.triggerChange();
+            }
+
+            getAll = () => {
+                return [...this._list];
+            }
+        }
         class Products extends React.Component{
+            state = { newProductName : ''}
+
+            onAddNewClick = () => {
+                this.props.model.addNew(this.state.newProductName);
+            }
             render(){
-                let productNames = [ 'Pen', 'Pencil', 'Marker', 'Scribble Pad' ];
-                {/* let productItems = [];
-                for (let index = 0; index < productNames.length; index++) {
-                    const productName = productNames[index];
-                    const productItem = (<li key={index}>{productName}</li>);
-                    productItems.push(productItem);
-                } */}
+                let productNames = this.props.model.getAll();
                 let productItems = productNames.map((productName, index) => (<li key={index}>{productName}</li>));
                 return(
                     <div>
                         <h1>Products</h1>
                         <hr/>
+                        <label htmlFor="">Product Name :</label>
+                        <input type="text" onChange={evt => this.setState({newProductName : evt.target.value})} />
+                        <input type="button" value="Add New" onClick={this.onAddNewClick} />
                         <ol>
                             {productItems}
                         </ol>
@@ -31,8 +57,17 @@
             }
         }
 
-        ReactDOM.render(<Products/>,
-            document.getElementById('root'))
+        let model = new ProductsModel();
+        function renderApp(){
+            ReactDOM.render(
+                <div>
+                    <Products model={model}/>
+                </div>
+                ,
+                document.getElementById('root'))
+        }
+        renderApp();
+        model.subscribe(renderApp);
     </script>
 
 </head>
