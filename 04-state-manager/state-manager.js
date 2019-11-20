@@ -1,7 +1,8 @@
 let SM = (function(){
-    let _currentState = null,
+    let _currentState = undefined,
         _subscribers = [],
-        _reducer = null;
+        _reducer = null,
+        __init_action = { type : '@@INIT/ACTION' };
 
     function getState(){
         return _currentState;
@@ -24,6 +25,7 @@ let SM = (function(){
 
     function createStore(reducer){
         _reducer = reducer;
+        _currentState = _reducer(_currentState, __init_action);
         return { getState, subscribe, dispatch };
     }
 
