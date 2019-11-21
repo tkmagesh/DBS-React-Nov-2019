@@ -10,6 +10,9 @@ function bugsReducer(currentState = [], action) {
         const bugsToRemove = action.payload;
         return currentState.filter(bug => bugsToRemove.indexOf(bug) === -1);
     }
+    if (action.type === 'LOAD'){
+        return action.payload;
+    }
     return currentState;
 }
 

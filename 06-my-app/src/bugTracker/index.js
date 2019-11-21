@@ -10,8 +10,9 @@ import { connect } from 'react-redux';
 
 class BugTracker extends Component {
     render() {
-        const { bugs, toggle, removeClosed, addNew } = this.props;
+        const { bugs, toggle, removeClosed, addNew, load } = this.props;
         return (<div>
+            <input type="button" value="Load" onClick={load} />
             {/* BugStats */}
             <BugStats bugs={bugs} />
             {/* BugSort */}
