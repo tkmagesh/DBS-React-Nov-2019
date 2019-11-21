@@ -9,6 +9,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 class BugTracker extends Component {
+    componentDidMount(){
+        this.props.load();
+    }
     render() {
         const { bugs, toggle, removeClosed, addNew, load } = this.props;
         return (<div>
