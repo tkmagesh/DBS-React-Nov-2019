@@ -1,27 +1,5 @@
 {
-  "bugs": [
-    {
-      "id": 3,
-      "name": "Socket server is not working",
-      "isClosed": false,
-      "createdAt": "2019-04-17T10:32:18.723Z",
-      "desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur aliquam id pariatur ipsa expedita nesciunt doloribus facilis architecto quisquam totam veniam odio, minima, labore deleniti, neque nam quia amet eveniet."
-    },
-    {
-      "id": 4,
-      "name": "Bugs are not toggled",
-      "isClosed": false,
-      "createdAt": "2019-10-31T07:28:53.509Z",
-      "desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur aliquam id pariatur ipsa expedita nesciunt doloribus facilis architecto quisquam totam veniam odio, minima, labore deleniti, neque nam quia amet eveniet."
-    },
-    {
-      "id": 5,
-      "name": "websocket is not realtime",
-      "isClosed": false,
-      "createdAt": "2019-10-31T07:40:29.820Z",
-      "desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur aliquam id pariatur ipsa expedita nesciunt doloribus facilis architecto quisquam totam veniam odio, minima, labore deleniti, neque nam quia amet eveniet."
-    }
-  ],
+  "bugs": [],
   "projects": [
     {
       "id": 1,
